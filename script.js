@@ -1,4 +1,4 @@
-let clickRuns = 0, clickWickets = 0, clickBall = 0, clickWhiteBall=0, countBall=0, clickOvers=0
+let clickRuns = 0, clickWickets = 0, clickBall = 0, clickWhiteBall=0, countBall=0, clickOvers=0,over=0
 function run0Click()
 {
     clickRuns=clickRuns+0;
@@ -13,6 +13,10 @@ function run1Click()
 {
     clickRuns=clickRuns+1;
     document.querySelector('.total-clickRuns').textContent = clickRuns;
+    // Overs()
+    // ballClick()
+    // saveData()       //error
+    // update()
     ballClick()
     Overs()
     saveData()
@@ -77,7 +81,6 @@ function wicketClick()
 }
 function noBallClick()
 {
-    // run1Click()
     clickRuns=clickRuns+1;
     alert("click corresponding runs obtained")
     document.querySelector('.total-clickRuns').textContent = clickRuns;
@@ -96,6 +99,7 @@ const state = {
     clickBall,
     clickWhiteBall,
     clickWickets
+    // clickOvers
 }
 history.push(state)
 }
@@ -103,6 +107,7 @@ function update() {
     document.querySelector('.total-clickRuns').textContent = clickRuns;
     document.getElementById('.total-clickWickets').textContent = clickWickets;
     document.getElementById('.total-clickBalls').textContent = clickBall;
+    // document.querySelector('.total-overs').textContent = clickOvers.toFixed(1);
 }
 function Undo() {
 if (history.length>1){
@@ -112,22 +117,25 @@ if (history.length>1){
     clickBall = previousState.clickBall
     clickWickets = previousState.clickWickets
     clickWhiteBall = previousState.clickWhiteBall
+    // clickOvers = previousState.clickOvers
     update();
 }
 }
 function Overs(){
-    if(clickBall<5){
-        countBall=countBall+1
-        clickOvers=(countBall/10)
+    if(clickBall<6){
+        // countBall=countBall+1
+        // clickOvers=(countBall/10)
+        clickOvers = clickOvers + 0.1
         // console.log(clickOvers)
     }
     else{
-        countBall=0
-        clickOvers=clickOvers+1
-        clickBall=0
+        // countBall=0
+        clickOvers = over + 1
+        clickBall = 0
+        over = over + 1
         // console.log(clickOvers)
     }
-    document.querySelector('.total-overs').textContent = clickOvers;
+    document.querySelector('.total-overs').textContent = clickOvers.toFixed(1);
 }
 
 
