@@ -72,12 +72,14 @@ function wideBallClick()
 function wicketClick()
 {
     // document.getElementById("wickets").value = "wicket"
+    if(clickWickets<10){
     clickWickets=clickWickets+1;
     document.querySelector('.total-clickWickets').textContent = clickWickets;
     ballClick()
     Overs()
     saveData()
     update()
+    }
 }
 function noBallClick()
 {
@@ -85,29 +87,36 @@ function noBallClick()
     alert("click corresponding runs obtained")
     document.querySelector('.total-clickRuns').textContent = clickRuns;
     clickBall=clickBall-1;
+    clickOvers = clickOvers - 0.1;
+    clickWickets=clickWickets-1;
     document.getElementById("wickets").value="runout";
+    // if(value = "runout"){
+    //     document.getElementById("wickets").value = "wicket"
+    // }
 }
+
 function ballClick()
 {
     clickBall=clickBall+1;
-    document.querySelector('.total-clickBall').textContent = clickBall;
+    document.querySelector('.total-clickBalls').textContent = clickBall;
 }
+
 let history = []
 function saveData() {
 const state = {
     clickRuns,
     clickBall,
     clickWhiteBall,
-    clickWickets
-    // clickOvers
+    clickWickets,
+    clickOvers
 }
 history.push(state)
 }
 function update() {
     document.querySelector('.total-clickRuns').textContent = clickRuns;
-    document.getElementById('.total-clickWickets').textContent = clickWickets;
-    document.getElementById('.total-clickBalls').textContent = clickBall;
-    // document.querySelector('.total-overs').textContent = clickOvers.toFixed(1);
+    document.querySelector('.total-clickWickets').textContent = clickWickets;
+    document.querySelector('.total-clickBalls').textContent = clickBall;
+    document.querySelector('.total-overs').textContent = clickOvers.toFixed(1);
 }
 function Undo() {
 if (history.length>1){
@@ -117,7 +126,7 @@ if (history.length>1){
     clickBall = previousState.clickBall
     clickWickets = previousState.clickWickets
     clickWhiteBall = previousState.clickWhiteBall
-    // clickOvers = previousState.clickOvers
+    clickOvers = previousState.clickOvers
     update();
 }
 }
